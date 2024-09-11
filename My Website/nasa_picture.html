@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Page title -->
+    <title>
+        Minor Smart Industry
+    </title>
+    <link rel="icon" href="images/HAN_favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="image">
+            <a href="index.html">
+                <img src="images/Industry_logo.png">
+            </a>
+        </div>
+        <div class="text">
+            <h1>Minor Smart Industry</h1>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="topnav">
+        <a href="index.html">Project</a>
+        <a href="persoon1.html">Persoon1</a>
+        <a href="persoon2.html">Persoon2</a>
+        <a href="persoon3.html">Persoon3</a>
+        <a href="weather.html">Weather</a>
+        <a class="active" href="nasa_picture.html">Picture of the day</a>
+    </div>
+
+    <!-- Nasa picture of the day -->
+    <main>
+        <header>
+            <h1>Nasa's Astronomical Picture of the Day</h1>
+
+            <form>
+                <label for="datepiceker">Pick a date:
+                    <input id="datepicker" type="date" min="" max="">
+                </label>
+            </form>
+
+            <hr style="color: white; width: 60vw;">
+        </header>
+
+        <section class="title-section">
+            <h2 id="title"></h2>
+            <p id="date"></p>
+            <small style="display: block;" id="copyright"></small>
+        </section>
+
+        <section id="media-section">
+        </section>
+
+        <section>
+            <div class="description-div">
+                <p id="description"></p>
+            </div>
+        </section>
+
+        <script type="text/javascript">
+            function nasarequested() {
+                const baseUrl = 'https://api.nasa.gov/planetary/apod?api_key=';
+                const apiKey = "BYi5aWBfedYdtPeYDFZUyEtTPfrcZuJsJ45nNZGa";
+                const dateInput = document.querySelector("#datepicker");
+                dateInput.addEventListener('change', (e) => {
+                    e.preventDefault();
+                    nasarequested();
+                })
+                const title = document.querySelector("#title");
+                const copyright = document.querySelector("#copyright");
+                const mediaSection = document.querySelector("#media-section");
+                const information = document.querySelector("#description");
+
+                const currentDate = new Date().toISOString().slice(0, 10);
+
+                const imageSection = `<a id="hdimg" href="" target="-blank">
+                  <div class="image-div">
+                 <img id="image_of_the_day" src="" alt="image-by-nasa">
+                 </div>
+                </a>`
+
+                const videoSection = `<div class="video-div"> <iframe id="videoLink" src="" frameborder="0"></iframe></div>`
+
+                let newDate = "&date=" + dateInput.value + "&";
+
+                function fetchData() {
+                    try {
+                        fetch(baseUrl + apiKey + newDate)
+                            .then(response => response.json())
+                            .then(json => {
+                                console.log(json);
+                                displaydata(json)
+                            })
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+
+                function displaydata(data) {
+
+                    title.innerHTML = data.title;
+
+                    if (data.hasOwnProperty("copyright")) {
+                        copyright.innerHTML = data.copyright;
+                    } else {
+                        copyright.innerHTML = ""
+                    }
+
+                    date.innerHTML = data.date;
+                    dateInput.max = currentDate;
+                    dateInput.min = "1995-06-16";
+
+                    if (data.media_type == "video") {
+                        mediaSection.innerHTML = videoSection;
+                        document.getElementById("videoLink").src = data.url;
+
+                    } else {
+                        mediaSection.innerHTML = imageSection;
+                        document.getElementById("hdimg").href = data.hdurl;
+                        document.getElementById("image_of_the_day").src = data.url;
+                    }
+                    information.innerHTML = data.explanation
+                }
+                fetchData();
+            }
+            nasarequested();
+        </script>
+
+        <!-- Footer -->
+        <footer id="main-footer">
+            <p>&copy; 2024 • Minor Smart Industry</p>
+        </footer>
+    </main>
+</body>
+
+</html>
