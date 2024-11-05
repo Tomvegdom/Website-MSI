@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Page title -->
+    <title>
+        Picture of the day
+    </title>
+    <link rel="icon" href="images/HAN_favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="image">
+            <a href="index.html">
+                <img src="images/Industry_logo.png">
+            </a>
+        </div>
+        <div class="text">
+            <h1>Minor Smart Industry</h1>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="topnav">
+        <a href="index.html">Project</a>
+        <a href="persoon1.html">Persoon1</a>
+        <a href="persoon2.html">Persoon2</a>
+        <a href="persoon3.html">Persoon3</a>
+        <a href="weather.html">Weather</a>
+        <a class="active" href="nasa_picture.html">Picture of the day</a>
+    </div>
+
+    <!-- Nasa picture of the day -->
+    <main>
+        <header>
+            <h1>Nasa's Astronomical Picture of the Day</h1>
+
+            <form>
+                <label for="datepiceker">Pick a date:
+                    <input id="datepicker" type="date" min="" max="">
+                </label>
+            </form>
+
+            <hr style="color: white; width: 60vw;">
+        </header>
+
+        <section class="title-section">
+            <h2 id="title"></h2>
+            <p id="date"></p>
+            <small style="display: block;" id="copyright"></small>
+        </section>
+
+        <section id="media-section">
+        </section>
+
+        <div class="description-div">
+            <p id="description"></p>
+        </div>
+
+        <!-- Run java script -->
+        <script src="javascript/nasa.js"></script> 
+
+        <!-- Footer -->
+        <footer id="main-footer">
+            <p>&copy; 2024 • Minor Smart Industry</p>
+        </footer>
+    </main>
+</body>
+
+</html>
